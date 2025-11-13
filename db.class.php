@@ -1,4 +1,5 @@
 ﻿<?php
+require_once __DIR__ . '/config_reader.php';
 define("CONN_ERROR","Error connecting DB");
 define("NO_DATA",0);
 define("BAD_QUERY",1);
@@ -24,13 +25,14 @@ class Database {
     public $messages;
 
     public function __construct() {
+        $config = leerPropiedades(__DIR__ . '/config.properties');
         $this->conn = null;
         $this->results = null;
-        $this->db = "sophyfarm";
-        $this->user = "root";
-        $this->pwd = "";
-        $this->host = "localhost:3306";
-        $this->path = "http://localhost/taller";
+        $this->db = $config['db_name'];
+        $this->user = $config['db_user'];
+        $this->pwd = $config['db_pass'];
+        $this->host = $config['db_host'];
+        $this->path = $config['db_path'];
         $this->rows = 0;
         $this->messages = array(
             "Error en la conexion",
